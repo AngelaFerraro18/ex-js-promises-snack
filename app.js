@@ -26,8 +26,7 @@ function getPostUser(id) {
             .then(post => fetch(`https://dummyjson.com/users/${post.userId}`)
                 .then(response => response.json())
                 .then(user => {
-                    post.user = user;
-                    resolve(post);
+                    resolve({ ...post, user })
                 })
                 .catch(error => reject(error)))
             .catch(error => reject(error))
@@ -36,10 +35,9 @@ function getPostUser(id) {
 }
 
 getPostUser(1)
-    .then(post => {
-        console.log("Post:", post.body);
-        console.log("Autore:", post.user.firstName, post.user.lastName);
-    })
+    .then(post =>
+        console.log("Post:", post)
+    )
     .catch(error => console.error(error))
 
 
